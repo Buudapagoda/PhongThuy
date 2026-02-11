@@ -22,8 +22,8 @@
     .badge-menh-tho { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
 
     /* Animation */
-    .animate-fade-in { animation: fadeIn 0.6s ease-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in { animation: fadeIn 0.4s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
     /* Table Styles */
     .custom-table { width: 100%; border-collapse: collapse; }
@@ -314,6 +314,52 @@
         </div>
     </div>
     
+  </div>
+
+  <div id="successModal" class="fixed inset-0 bg-slate-900/90 z-[10000] hidden flex items-center justify-center p-4 animate-fade-in">
+    <div class="bg-slate-800 border border-slate-600 rounded-xl p-6 max-w-sm w-full shadow-2xl relative">
+        <button onclick="document.getElementById('successModal').classList.add('hidden')" class="absolute top-3 right-4 text-slate-400 hover:text-white transition-colors">
+            <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+        
+        <div class="text-center">
+            <div class="w-16 h-16 bg-emerald-500/10 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-500/30">
+                <i class="fa-solid fa-check text-3xl"></i>
+            </div>
+            
+            <h3 class="text-xl font-bold text-white mb-2">Gửi Sớ Thành Công!</h3>
+            <p class="text-slate-300 text-sm mb-6 leading-relaxed">
+                Danh sách cầu An/Siêu đã được chuyển đến nhà Chùa. A Di Đà Phật.
+            </p>
+
+            <div class="bg-amber-500/10 rounded-lg p-4 border border-amber-500/30 mb-6">
+                <p class="text-amber-500 font-bold text-xs uppercase mb-3 tracking-wider">
+                    <i class="fa-solid fa-circle-info mr-1"></i> Xác nhận & Cúng dường
+                </p>
+                <p class="text-slate-300 text-xs mb-3">Liên hệ Zalo để xác nhận:</p>
+                
+                <div class="bg-slate-900/50 rounded-lg p-3 border border-slate-700">
+                    <a href="https://zalo.me/0703676073" target="_blank" class="flex items-center justify-center gap-2 w-full bg-[#0068FF] hover:bg-[#0054cc] text-white font-bold py-2.5 rounded-lg transition-all shadow-lg shadow-blue-900/30 mb-2 group">
+                        <span class="bg-white text-blue-600 rounded-full w-6 h-6 flex items-center justify-center font-serif font-black text-xs">Z</span>
+                        <span>Chat Zalo Ngay</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs opacity-70 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    
+                    <div class="flex justify-center items-center gap-2 text-xs text-slate-400">
+                        <span>SĐT: 0703.676.073</span>
+                        <button onclick="navigator.clipboard.writeText('0703676073'); alert('Đã sao chép SĐT!')" class="hover:text-white" title="Sao chép">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <button onclick="document.getElementById('successModal').classList.add('hidden')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-8 rounded-lg transition-all w-full">
+                Hoàn Tất
+            </button>
+        </div>
+    </div>
   </div>
 
   <footer class="text-center text-slate-600 text-xs py-6 mt-8">
@@ -952,9 +998,10 @@
             });
             const json = await response.json();
             
+            // XỬ LÝ KẾT QUẢ: Ẩn loading và hiện Modal thông báo
             document.getElementById("loading").classList.add("hidden");
             if(json.result === "success") {
-                alert("✅ Đã gửi thành công! A Di Đà Phật.");
+                document.getElementById("successModal").classList.remove("hidden");
             } else {
                 alert("❌ Lỗi từ Server: " + JSON.stringify(json));
             }
